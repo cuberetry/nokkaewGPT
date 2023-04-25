@@ -10,6 +10,8 @@ optimizer = torch.optim.AdamW(m.parameters(), lr=1e-3)
 
 # Train from scratch if reset is True
 reset = False
+if input("Do you want to reset the model? [Enter 'yes' for reset]: ").upper() == "YES":
+    reset = True
 
 total_step = int(input("Enter training step: "))
 
