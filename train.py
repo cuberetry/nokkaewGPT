@@ -50,8 +50,8 @@ for steps in range(total_step):
     loss.backward()
     optimizer.step()
 
-    # Progress report every 1000 steps
-    if steps % 1000 == 0:
+    # Progress report every n steps
+    if steps % 100 == 0:
         with torch.no_grad():
             val_xb, val_yb = model.get_batch('val')
             val_logits, val_loss = NokkaewGPT(val_xb, val_yb)
