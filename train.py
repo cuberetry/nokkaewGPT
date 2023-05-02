@@ -46,7 +46,6 @@ for steps in range(total_step):
 
     # evaluate the loss
     logits, loss = NokkaewGPT(xb, yb)
-    print(xb, yb)
     optimizer.zero_grad(set_to_none=True)
     loss.backward()
     optimizer.step()
