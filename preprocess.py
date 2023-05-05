@@ -46,13 +46,17 @@ for file in data_path:
         if file.split('.')[-1] == "json":
             data = json.load(input_file)
             i = 0
+            sum_key, con_key = None, None
             for d in data[0]:
                 if d == "highlight" or d == "summary":
                     sum_key = d
                 elif d == "content" or d == "text" or d == "body":
                     con_key = d
             for lines in data:
-                line = lines[con_key] + '<h>' + lines[sum_key] + "\n"
+                if sum_key is None:
+                    line = lines[con_key] + "\n"
+                else:
+                    line = lines[con_key] + '<h>' + lines[sum_key] + "\n"
                 text = tk_segment(line)
                 subword_tokenize.write(' '.join(text))
                 if i % 100 == 0:
@@ -81,7 +85,6 @@ for file in data_path:
                 text = tk_segment(p_line)
                 subword_tokenize.write(' '.join(text))
                 if i % 100 == 0:
-                    break
                     print(i)
                 i += 1
 
