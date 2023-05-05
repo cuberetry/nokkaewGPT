@@ -20,7 +20,7 @@ project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 # Tokenizing
 with open(project_dir + "/data/subword_tokenize.txt") as f:
-    text = f.readline()
+    text = f.read()
 
 # Tokenize
 words_tokens = text.split(' ')  # Change this to a list of sub-word instead
