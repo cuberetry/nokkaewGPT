@@ -30,6 +30,9 @@ endline = model.encode('\n')[0]
 
 model_state_dict = torch.load('./model/nokkaew_model.pth')
 NokkaewGPT = model.NokkaewLanguageModel()
+model_state_dict['token_embedding_table.weight'] = torch.nn.Parameter(torch.randn(model.vocab_size, model.n_embd))
+model_state_dict['lm_head.weight'] = torch.nn.Parameter(torch.randn(model.vocab_size, model.n_embd))
+model_state_dict['lm_head.bias'] = torch.nn.Parameter(torch.randn(model.vocab_size))
 NokkaewGPT.load_state_dict(model_state_dict)
 m = NokkaewGPT.to(model.device)
 
