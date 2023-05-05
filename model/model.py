@@ -35,10 +35,31 @@ word_to_idx = {word: i for i, word in enumerate(vocab)}
 idx_to_word = {i: word for i, word in enumerate(vocab)}
 
 # Encoding
-encode = lambda words: [word_to_idx[word] for word in words]
+def encode(words):
+    global vocab_size
+    result = []
+    for word in words:
+        try:
+            result.append(word_to_idx[word])
+        except KeyError:
+            label = len(word_to_idx)
+            word_to_idx[word] = label
+            idx_to_word[label] = word
+            result.append(word_to_idx[word])
+            vocab_size += 1
+    return result
+
 
 # Decoding
-decode = lambda lst: ' '.join([idx_to_word[i] for i in lst])
+def decode(lst):
+    words = []
+    for i in lst:
+        try:
+            word = idx_to_word[i]
+            words.append(word)
+        except KeyError:
+            continue
+    return ' '.join(words)
 
 
 # Self-attention head
