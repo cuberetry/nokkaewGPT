@@ -15,7 +15,15 @@ reset = False
 if input("Do you want to reset the model? [Enter 'yes' for reset]: ").upper() == "YES":
     reset = True
 
-total_step = int(input("Enter training step: "))
+try:
+    total_step = int(input("Enter training step: "))
+except ValueError:
+    print("Invalid input. Please enter a positive integer.")
+    exit(1)
+    
+if total_step < 0:
+    print("Invalid input. Please enter a positive integer.")
+    exit(1)
 
 if not reset:
     model_state_dict = torch.load('./model/nokkaew_model.pth')
@@ -40,8 +48,7 @@ log_file.write("vocab_size: " + str(model.vocab_size) + "\n\n")
 
 log_file.write("Training steps: " + str(total_step) + "\n\n")
 
-
-for steps in range(total_step):
+for steps in range(total_step+1):
     # sample a batch of data
     xb, yb = model.get_batch('train')
 
