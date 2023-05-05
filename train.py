@@ -35,7 +35,8 @@ log_file.write("hidden_dim: " + str(model.hidden_dim) + "\n")
 log_file.write("n_embd: " + str(model.n_embd) + "\n")
 log_file.write("n_head: " + str(model.n_head) + "\n")
 log_file.write("n_layer: " + str(model.n_layer) + "\n")
-log_file.write("dropout: " + str(model.dropout) + "\n\n")
+log_file.write("dropout: " + str(model.dropout) + "\n")
+log_file.write("vocab_size: " + str(model.vocab_size) + "\n\n")
 
 log_file.write("Training steps: " + str(total_step) + "\n\n")
 
