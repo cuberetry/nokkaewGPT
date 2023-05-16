@@ -2,21 +2,18 @@ import os
 import zipfile
 from pythainlp.tokenize.tcc import segment
 import json
-import csv
-
+from collections import Counter
 
 def tk_segment(text):
     subwords = segment(text)
 
     if len(subwords) == 0:
         return ''
-    elif len(subwords) == 1:
-        return subwords[0]
 
-    text = [subwords[0]]
-    for word in subwords[1:]:
-        if word.isdigit() and text[-1].isdigit():
-            text[-1] += word
+    text = []
+    for word in subwords:
+        if word.isdigit():
+            continue
         else:
             text.append(word)
 
@@ -43,6 +40,8 @@ with open('./data/subword_tokenize.txt', 'w') as reset_file:
 for file in data_path:
     with open(file, 'r') as input_file, open('./data/subword_tokenize.txt', 'a') as subword_tokenize:
         print(file)
+        if file == "./data/idx_to_word.json" or file == "./data/word_to_idx.json":
+            continue
         if file.split('.')[-1] == "json":
             data = json.load(input_file)
             i = 0
@@ -94,3 +93,29 @@ with open('./data/subword_tokenize.txt', 'r') as file:
 
 with open('./data/subword_tokenize.txt', 'w') as file:
     file.write(new_content)
+
+print("Saving tokenized vocabs as dict")
+
+# Tokenize
+with open("./data/subword_tokenize.txt") as f:
+    text = f.read()
+words_tokens = text.split(' ')  # Change this to a list of sub-word instead
+
+# Words and their frequency
+word_cnt = Counter(words_tokens)
+vocab = sorted(word_cnt, key=word_cnt.get, reverse=True)
+# print(word_cnt)
+vocab_size = len(vocab)
+
+# Create indexing
+word_to_idx = {word: i for i, word in enumerate(vocab)}
+idx_to_word = {i: word for i, word in enumerate(vocab)}
+
+# Save word_to_idx and idx_to_word as json
+with open("./data/word_to_idx.json", 'w', encoding='utf-8') as word_to_idx_file:
+    json.dump(word_to_idx, word_to_idx_file, ensure_ascii=False,)
+print("Successfully saved word to index")
+
+with open("./data/idx_to_word.json", 'w', encoding='utf-8') as idx_to_word_file:
+    json.dump(idx_to_word, idx_to_word_file, ensure_ascii=False,)
+print("Successfully saved index to word")
