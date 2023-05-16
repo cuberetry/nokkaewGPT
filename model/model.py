@@ -2,7 +2,7 @@ import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from collections import Counter
+import json
 
 # Hyperparameter
 batch_size = 16     # how many independent sequences will we process in parallel?
@@ -19,20 +19,17 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 # Tokenizing
-with open(project_dir + "/data/subword_tokenize.txt") as f:
+with open(project_dir + "/data/word_to_idx.json") as word_to_idx_file:
+    word_to_idx = json.load(word_to_idx_file)
+
+with open(project_dir + "/data/idx_to_word.json") as idx_to_word_file:
+    idx_to_word = json.load(idx_to_word_file)
+
+vocab_size = len(word_to_idx)
+
+with open("./data/subword_tokenize.txt") as f:
     text = f.read()
-
-# Tokenize
-words_tokens = text.split(' ')  # Change this to a list of sub-word instead
-
-# Words and their frequency
-word_cnt = Counter(words_tokens)
-vocab = sorted(word_cnt, key=word_cnt.get, reverse=True)
-vocab_size = len(vocab)
-
-# Create indexing
-word_to_idx = {word: i for i, word in enumerate(vocab)}
-idx_to_word = {i: word for i, word in enumerate(vocab)}
+words_tokens = text.split(' ')
 
 # Encoding
 def encode(words):
@@ -44,7 +41,7 @@ def encode(words):
         except KeyError:
             label = len(word_to_idx)
             word_to_idx[word] = label
-            idx_to_word[label] = word
+            idx_to_word[str(label)] = word
             result.append(word_to_idx[word])
             vocab_size += 1
     return result
@@ -55,12 +52,11 @@ def decode(lst):
     words = []
     for i in lst:
         try:
-            word = idx_to_word[i]
+            word = idx_to_word[str(i)]
             words.append(word)
         except KeyError:
             continue
     return ' '.join(words)
-
 
 # Self-attention head
 class Head(nn.Module):
@@ -201,9 +197,11 @@ class NokkaewLanguageModel(nn.Module):
 
 # Split data to train and validation sets
 data = torch.tensor(encode(words_tokens))
+m = int(0.8*len(data))
 n = int(0.9*len(data))
-train_data = data[:n]
-val_data = data[n:]
+train_data = data[:m]
+val_data = data[m:n]
+test_data = data[n:]
 
 
 # Getting sample as a small batch to train the model
