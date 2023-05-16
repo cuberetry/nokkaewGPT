@@ -14,6 +14,7 @@ optimizer = torch.optim.AdamW(m.parameters(), lr=1e-3)
 reset = False
 if input("Do you want to reset the model? [Enter 'yes' for reset]: ").upper() == "YES":
     reset = True
+    print("Resetting...")
 
 try:
     total_step = int(input("Enter training step: "))
@@ -48,7 +49,7 @@ log_file.write("vocab_size: " + str(model.vocab_size) + "\n\n")
 
 log_file.write("Training steps: " + str(total_step) + "\n\n")
 
-for steps in range(total_step+1):
+for steps in range(total_step):
     # sample a batch of data
     xb, yb = model.get_batch('train')
 
@@ -59,7 +60,7 @@ for steps in range(total_step+1):
     optimizer.step()
 
     # Progress report every n steps
-    if steps % 100 == 0:
+    if steps % 10 == 0 or steps == 0 or steps == total_step - 1:
         with torch.no_grad():
             val_xb, val_yb = model.get_batch('val')
             val_logits, val_loss = NokkaewGPT(val_xb, val_yb)
@@ -71,6 +72,7 @@ for steps in range(total_step+1):
             best_loss = val_loss
             # save the model
             torch.save(NokkaewGPT.state_dict(), './model/nokkaew_model.pth')
+            log_file.write("The step below is saved!")
         log_file.write(str(steps) + '/' + str(total_step) + "\n")
         log_file.write(f'Step {steps}: Training Loss: {loss.item()}, Validation Loss: {val_loss.item()}' + '\n\n')
 
