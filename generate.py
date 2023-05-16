@@ -4,22 +4,19 @@ import torch
 
 
 def tk_segment(text):
-    sub_words = segment(text)
+    subwords = segment(text)
+    subwords = ['<s>' if word == ' ' else word for word in subwords]
 
-    if len(sub_words) == 0:
+    if len(subwords) == 0:
         return ''
-    elif len(sub_words) == 1:
-        return sub_words[0]
 
-    text = [sub_words[0]]
-    for word in sub_words[1:]:
-        if word.isdigit() and text[-1].isdigit():
-            text[-1] += word
+    text = []
+    for word in subwords:
+        if word.isdigit():
+            continue
         else:
             text.append(word)
-
     return text
-
 
 context = input("Enter your content: ")
 tk_context = tk_segment(context)
@@ -37,4 +34,5 @@ NokkaewGPT.load_state_dict(model_state_dict)
 m = NokkaewGPT.to(model.device)
 
 with open("./output/output_from_model.txt", "w") as output_file:
-    output_file.write(model.decode(m.generate(encoded_t, endline)[0].tolist()))
+    raw_output = m.generate(encoded_t, endline)[0].tolist()
+    output_file.write(model.decode(raw_output))
