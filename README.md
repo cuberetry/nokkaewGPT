@@ -61,7 +61,7 @@ n_layer: 4
 dropout: 0.1
 vocab_size: 2146
 
-Training steps: 1
+Training steps: 100
 
 0/100
 Step 0: Training Loss: 3.3713910579681396, Validation Loss: 3.6702888011932373
