@@ -7,8 +7,6 @@ import json
 # Hyperparameter
 batch_size = 16     # how many independent sequences will we process in parallel?
 block_size = 32     # what is the maximum context length for predictions?
-embedding_dim = 32
-hidden_dim = 128
 n_embd = 64
 n_head = 4
 n_layer = 4
