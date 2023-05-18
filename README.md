@@ -25,6 +25,17 @@ By including this dataset, you will be able to leverage a comprehensive and dive
 
 Furthermore, please ensure that the dataset file `thaisum.csv` is placed in the designated directory within your project structure. Specifically, it is recommended to store the `thaisum.csv` file in the `./data/` directory.
 
+## Creating a Conda Environment
+To run the project locally, it is recommended to create a Conda environment with the required dependencies. Follow the steps below to create the environment:
+1. Create a new Conda environment using the provided environment.yml file. Run the following command:
+```
+$ conda env create -f environment.yml
+```
+2. Activate the Conda environment by running the following command:
+```
+$ conda activate nokkaewGPT
+```
+
 ## Setup
 To preprocess the corpus before training, simply execute the following command in your terminal or command prompt:
 ```
@@ -61,8 +72,6 @@ Reset: False
 Hyperparameters:
 batch_size: 16
 block_size: 32
-embedding_dim: 32
-hidden_dim: 128
 n_embd: 64
 n_head: 4
 n_layer: 4
