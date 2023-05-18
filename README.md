@@ -5,9 +5,9 @@ Project is developed using Python 3.10.8
 **Dependencies:**
 #### Pytorch
 
-> Anaconda: `conda install pytorch`
+Anaconda: `conda install pytorch`
 
-> Pip: `pip install torch`
+Pip: `pip install torch`
 
 #### Numpy
 
