@@ -6,9 +6,9 @@ Dependencies:
 
 **Pytorch**
 
-> Anaconda: `conda install pytorch`
+Anaconda: `conda install pytorch`
 
-> Pip: `pip install torch`
+Pip: `pip install torch`
 
 **Numpy**
 
