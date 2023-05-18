@@ -42,7 +42,7 @@ Once the input is provided, the script will generate the output using the traine
 Make sure that you have successfully trained the model before attempting to generate output, as the quality of the generated text relies on the model's training and learned patterns.
 
 ## Log
-The logs from the train.py script will be stored in the directory `./log/yyyy-mm-dd-hh:mm:ss.txt`, where `yyyy-mm-dd-hh:mm:ss `represents the timestamp of when the script was executed.
+The logs from the train.py script will be stored in the directory `./log/yyyy-mm-dd-hh:mm:ss.txt`, where `yyyy-mm-dd-hh:mm:ss` represents the timestamp of when the script was executed.
 
 Here is an example output from the log file:
 ```
