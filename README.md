@@ -2,19 +2,18 @@
 ## Install
 Project is developed using Python 3.10.8
 
-Dependencies:
+**Dependencies:**
+#### Pytorch
 
-**Pytorch**
+> Anaconda: `conda install pytorch`
 
-Anaconda: `conda install pytorch`
+> Pip: `pip install torch`
 
-Pip: `pip install torch`
-
-**Numpy**
+#### Numpy
 
 `pip install numpy`
 
-**PyThaiNLP**
+#### PyThaiNLP
 
 `pip install pythainlp`
 
