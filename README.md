@@ -21,9 +21,9 @@ Pip: `pip install torch`
 
 In addition to the data included in the Git repository, it is highly recommended to incorporate the dataset `thaisum.csv` from the following GitHub repository: https://github.com/nakhunchumpolsathien/ThaiSum.
 
-By including this dataset, you will be able to leverage a comprehensive and diverse set of Thai text data, enhancing the effectiveness and accuracy of the model's performance. It is advised to download and incorporate the theism.csv dataset into your project to ensure optimal results and compatibility with the established production environment.
+By including this dataset, you will be able to leverage a comprehensive and diverse set of Thai text data, enhancing the effectiveness and accuracy of the model's performance. It is advised to download and incorporate the `thaisum.csv` dataset into your project to ensure optimal results and compatibility with the established production environment.
 
-Furthermore, please ensure that the dataset file `thaisum.csv` is placed in the designated directory within your project structure. Specifically, it is recommended to store the `thaisum.csv` file in the `./data/` directory.
+Furthermore, please ensure that the dataset file `thaisum.csv` is placed in the `./data/` directory.
 
 ## Creating a Conda Environment
 To run the project locally, it is recommended to create a Conda environment with the required dependencies. Follow the steps below to create the environment:
@@ -49,8 +49,6 @@ $ python train.py
 Before the training begins, the script will prompt you with a question if you wish to reset the model. If you wish to reset the model and start the training from scratch, enter "yes" at the prompt. If you want to continue training with the existing model, simply enter anything else.
 
 After handling the model reset prompt, the script will then ask you to enter the number of training steps you want to execute. This determines the duration of the training process and controls how many iterations the model will go through to optimize its performance. Enter the desired number of training steps and press Enter to proceed with the training.
-
-It's important to configure the number of training steps appropriately based on your specific requirements and available computational resources. Adjusting the number of training steps allows you to balance the training time and the model's learning capacity to achieve the desired results.
 
 To generate output using the trained language model, you can run the following command:
 ```
