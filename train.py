@@ -74,4 +74,11 @@ for steps in range(total_step):
         log_file.write(str(steps) + '/' + str(total_step) + "\n")
         log_file.write(f'Step {steps}: Training Loss: {loss.item()}, Validation Loss: {val_loss.item()}' + '\n\n')
 
+# Evaluation on the test dataset
+test_xb, test_yb = model.get_batch('test')
+test_logits, test_loss = NokkaewGPT(test_xb, test_yb)
+
+# Save test loss to the log file
+log_file.write(f'Test Loss: {test_loss.item()}' + '\n')
+
 log_file.close()
