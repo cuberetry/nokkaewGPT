@@ -53,9 +53,9 @@ for file in data_path:
                     con_key = d
             for lines in data:
                 if sum_key is None:
-                    line = lines[con_key] + '<n>'
+                    line = lines[con_key] + '<n>\n'
                 else:
-                    line = lines[con_key] + '<h>' + lines[sum_key] + '<n>'
+                    line = lines[con_key] + '<h>' + lines[sum_key] + '<n>\n'
                 text = tk_segment(line)
                 subword_tokenize.write(' '.join(text))
                 if i % 100 == 0:
@@ -78,7 +78,7 @@ for file in data_path:
             for lines in file_data[1:]:
                 line = lines.split(',')
                 try:
-                    p_line = line[content_idx] + '<h>' + line[summary_idx] + '<n>'
+                    p_line = line[content_idx] + '<h>' + line[summary_idx] + '<n>\n'
                 except IndexError:
                     pass
                 text = tk_segment(p_line)
@@ -89,7 +89,7 @@ for file in data_path:
 
 with open('./data/subword_tokenize.txt', 'r') as file:
     content = file.read()
-    new_content = content.replace('   ', ' <s> ').replace('< h >', '<h>').replace('< n >', '<n>')
+    new_content = content.replace('   ', ' <s> ').replace('< h >', '<h>').replace('< n >', '<n>').replace('\n','')
 
 with open('./data/subword_tokenize.txt', 'w') as file:
     file.write(new_content)
