@@ -23,7 +23,7 @@ tk_context = tk_segment(context)
 encoded = model.encode(tk_context + ['<h>'])
 encoded_t = torch.tensor(encoded)
 encoded_t = encoded_t.unsqueeze(0)
-endline = model.encode('\n')[0]
+endline = model.encode('<n>')[0]
 
 model_state_dict = torch.load('./model/nokkaew_model.pth')
 NokkaewGPT = model.NokkaewLanguageModel()
