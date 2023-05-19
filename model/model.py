@@ -205,7 +205,15 @@ test_data = data[n:]
 # Getting sample as a small batch to train the model
 def get_batch(split):
     # Generate a mini batch of X and Y
-    data_set = train_data if split == 'train' else val_data
+    if split == 'train':
+        data_set = train_data
+    elif split == 'val':
+        data_set = val_data
+    elif split == 'test':
+        data_set = test_data
+    else:
+        print("Invalid get batch argument, exiting...")
+        exit(1)
     ix = torch.randint(len(data_set) - block_size, (batch_size, ))
     x = torch.stack([data_set[i: i+block_size] for i in ix])
     y = torch.stack([data_set[i+1: i+block_size+1] for i in ix])
