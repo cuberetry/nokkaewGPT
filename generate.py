@@ -23,7 +23,7 @@ tk_context = tk_segment(context)
 encoded = model.encode(tk_context + ['<h>'])
 encoded_t = torch.tensor(encoded)
 encoded_t = encoded_t.unsqueeze(0)
-endline = model.encode('<n>')[0]
+endline = model.word_to_idx['<n>']
 
 model_state_dict = torch.load('./model/nokkaew_model.pth')
 NokkaewGPT = model.NokkaewLanguageModel()
@@ -34,5 +34,5 @@ NokkaewGPT.load_state_dict(model_state_dict)
 m = NokkaewGPT.to(model.device)
 
 with open("./output/output_from_model.txt", "w") as output_file:
-    raw_output = m.generate(encoded_t, endline)[0].tolist()
+    raw_output = m.generate(encoded_t.to(model.device), endline, 1000)[0].tolist()
     output_file.write(model.decode(raw_output))
